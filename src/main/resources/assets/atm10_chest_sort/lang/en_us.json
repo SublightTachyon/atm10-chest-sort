@@ -8,7 +8,7 @@
   "atm10_chest_sort.tooltip.sort_chest": "Combine stacks and sort the chest by item name and ID",
   "atm10_chest_sort.tooltip.merge_chest": "Move inventory stacks whose item type already exists in the chest",
   "atm10_chest_sort.tooltip.all_chest": "Move every possible inventory stack into the chest",
-  "atm10_chest_sort.tooltip.sort_inventory": "Combine stacks and sort your main inventory and hotbar",
+  "atm10_chest_sort.tooltip.sort_inventory": "Combine stacks and sort your main inventory without changing the hotbar",
   "atm10_chest_sort.tooltip.merge_inventory": "Move chest stacks whose item type already exists in your inventory",
   "atm10_chest_sort.tooltip.all_inventory": "Move every possible chest stack into your inventory",
   "atm10_chest_sort.message.cursor_not_empty": "Put down the item on your cursor before sorting.",

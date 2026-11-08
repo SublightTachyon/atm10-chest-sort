@@ -24,7 +24,7 @@ final class ContainerActions {
     }
 
     static void sortInventory(AbstractContainerMenu menu) {
-        runIfSupported(menu, layout -> sort(menu, layout.playerSlots()));
+        runIfSupported(menu, layout -> sort(menu, layout.mainInventorySlots()));
     }
 
     static void moveAllToStorage(AbstractContainerMenu menu) {

@@ -23,12 +23,16 @@ final class ContainerLayout {
 
         Inventory inventory = minecraft.player.getInventory();
         List<Integer> player = new ArrayList<>();
+        List<Integer> mainInventory = new ArrayList<>();
         List<IndexedSlot> external = new ArrayList<>();
 
         for (int menuIndex = 0; menuIndex < menu.slots.size(); menuIndex++) {
             Slot slot = menu.slots.get(menuIndex);
             if (slot.container == inventory && slot.getContainerSlot() >= 0 && slot.getContainerSlot() < 36) {
                 player.add(menuIndex);
+                if (slot.getContainerSlot() >= 9) {
+                    mainInventory.add(menuIndex);
+                }
             } else if (slot.container != inventory && slot.isActive()) {
                 external.add(new IndexedSlot(menuIndex, slot.x, slot.y));
             }
@@ -42,7 +46,7 @@ final class ContainerLayout {
         if (storage.size() < 9) {
             return Layout.EMPTY;
         }
-        return new Layout(List.copyOf(storage), List.copyOf(player));
+        return new Layout(List.copyOf(storage), List.copyOf(player), List.copyOf(mainInventory));
     }
 
     private static List<Integer> largestRegularGrid(List<IndexedSlot> slots) {
@@ -105,11 +109,11 @@ final class ContainerLayout {
         return firstX.equals(otherX);
     }
 
-    record Layout(List<Integer> storageSlots, List<Integer> playerSlots) {
-        private static final Layout EMPTY = new Layout(List.of(), List.of());
+    record Layout(List<Integer> storageSlots, List<Integer> playerSlots, List<Integer> mainInventorySlots) {
+        private static final Layout EMPTY = new Layout(List.of(), List.of(), List.of());
 
         boolean supported() {
-            return !storageSlots.isEmpty() && !playerSlots.isEmpty();
+            return !storageSlots.isEmpty() && playerSlots.size() == 36 && mainInventorySlots.size() == 27;
         }
     }
 
