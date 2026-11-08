@@ -24,6 +24,7 @@ final class ContainerLayout {
         Inventory inventory = minecraft.player.getInventory();
         List<Integer> player = new ArrayList<>();
         List<Integer> mainInventory = new ArrayList<>();
+        List<Integer> hotbar = new ArrayList<>();
         List<IndexedSlot> external = new ArrayList<>();
 
         for (int menuIndex = 0; menuIndex < menu.slots.size(); menuIndex++) {
@@ -32,6 +33,8 @@ final class ContainerLayout {
                 player.add(menuIndex);
                 if (slot.getContainerSlot() >= 9) {
                     mainInventory.add(menuIndex);
+                } else {
+                    hotbar.add(menuIndex);
                 }
             } else if (slot.container != inventory && slot.isActive()) {
                 external.add(new IndexedSlot(menuIndex, slot.x, slot.y));
@@ -46,7 +49,7 @@ final class ContainerLayout {
         if (storage.size() < 9) {
             return Layout.EMPTY;
         }
-        return new Layout(List.copyOf(storage), List.copyOf(player), List.copyOf(mainInventory));
+        return new Layout(List.copyOf(storage), List.copyOf(player), List.copyOf(mainInventory), List.copyOf(hotbar));
     }
 
     private static List<Integer> largestRegularGrid(List<IndexedSlot> slots) {
@@ -109,11 +112,15 @@ final class ContainerLayout {
         return firstX.equals(otherX);
     }
 
-    record Layout(List<Integer> storageSlots, List<Integer> playerSlots, List<Integer> mainInventorySlots) {
-        private static final Layout EMPTY = new Layout(List.of(), List.of(), List.of());
+    record Layout(List<Integer> storageSlots, List<Integer> playerSlots, List<Integer> mainInventorySlots,
+                  List<Integer> hotbarSlots) {
+        private static final Layout EMPTY = new Layout(List.of(), List.of(), List.of(), List.of());
 
         boolean supported() {
-            return !storageSlots.isEmpty() && playerSlots.size() == 36 && mainInventorySlots.size() == 27;
+            return !storageSlots.isEmpty()
+                    && playerSlots.size() == 36
+                    && mainInventorySlots.size() == 27
+                    && hotbarSlots.size() == 9;
         }
     }
 

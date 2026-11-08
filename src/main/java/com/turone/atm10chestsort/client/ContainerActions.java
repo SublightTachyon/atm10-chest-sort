@@ -28,7 +28,16 @@ final class ContainerActions {
     }
 
     static void moveAllToStorage(AbstractContainerMenu menu) {
-        runIfSupported(menu, layout -> quickMoveAll(menu, layout.playerSlots()));
+        runIfSupported(menu, layout -> {
+            boolean mainInventoryHasItems = layout.mainInventorySlots().stream()
+                    .map(menu::getSlot)
+                    .map(Slot::getItem)
+                    .anyMatch(stack -> !stack.isEmpty());
+
+            // First press clears the main inventory. Only an already-empty main
+            // inventory permits a subsequent press to clear the hotbar.
+            quickMoveAll(menu, mainInventoryHasItems ? layout.mainInventorySlots() : layout.hotbarSlots());
+        });
     }
 
     static void moveAllToInventory(AbstractContainerMenu menu) {

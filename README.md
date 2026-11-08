@@ -4,14 +4,15 @@ A small client-side NeoForge mod for All the Mods 10 (Minecraft 1.21.1). It adds
 
 - **Sort Chest** and **Sort Inventory** — combine partial stacks, then sort items by display name and registry ID. Inventory sorting leaves all nine hotbar slots untouched.
 - **Merge → Chest/Inventory** — move only item types already present at the destination.
-- **All → Chest/Inventory** — quick-move every stack that the normal menu permits.
+- **All → Chest** — move the main inventory first. Once it is empty, press again to move the hotbar.
+- **All → Inventory** — quick-move every chest stack that the normal menu permits.
 
 The mod sends ordinary vanilla inventory clicks. It therefore works in single-player and can be used on a multiplayer server without installing it on the server.
 
 ## Install
 
 1. Build with `./gradlew build`, or use the JAR from `build/libs/`.
-2. Put `atm10_chest_sort-1.0.1.jar` in the ATM10 instance's `mods` folder.
+2. Put `atm10_chest_sort-1.0.2.jar` in the ATM10 instance's `mods` folder.
 3. Keep the mod on the client only.
 
 The project targets Minecraft 1.21.1, Java 21, and NeoForge 21.1.x.
